@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/index.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/services/prayer_service.dart';
+import 'package:fakieh_mosque_app/core/services/notification_service.dart';
+import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/core/widgets/mosque_header.dart';
+import 'package:fakieh_mosque_app/core/widgets/prayer_countdown.dart';
 import '../auth/models/user_model.dart';
 import '../../features/prayer_times/screens/prayer_times_screen.dart';
 import '../../features/tahfeez/screens/teacher_dashboard_screen.dart';
