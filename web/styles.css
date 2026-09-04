@@ -1,0 +1,872 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+:root {
+  --primary-emerald: #064e3b;
+  --primary-emerald-light: #047857;
+  --primary-emerald-dark: #022c22;
+  --emerald-surface: #062e25;
+  --emerald-glow: rgba(6, 78, 59, 0.4);
+
+  --gold: #d97706;
+  --gold-light: #f59e0b;
+  --gold-dark: #b45309;
+  --gold-accent: #fde68a;
+  --gold-glow: rgba(217, 119, 6, 0.35);
+
+  --bg-light: #f8fafc;
+  --surface-light: #ffffff;
+  --card-light: #ffffff;
+  --border-light: #e2e8f0;
+
+  --bg-dark: #080d11;
+  --surface-dark: #0e171e;
+  --card-dark: #132029;
+  --border-dark: #1e2f3d;
+
+  --slate: #64748b;
+  --slate-light: #94a3b8;
+  --slate-dark: #334155;
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --shadow-glass: 0 10px 36px 0 rgba(6, 78, 59, 0.08);
+  --shadow-gold: 0 8px 24px 0 rgba(217, 119, 6, 0.25);
+  --shadow-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+  --bg-light: var(--bg-dark);
+  --surface-light: var(--surface-dark);
+  --card-light: var(--card-dark);
+  --border-light: var(--border-dark);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --shadow-glass: 0 10px 36px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Custom Islamic Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(6, 78, 59, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold) 0%, var(--primary-emerald) 100%);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-main);
+  direction: rtl;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Typography */
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Cairo', sans-serif;
+}
+
+.font-quran {
+  font-family: 'Amiri', serif;
+}
+
+/* =========================================
+   0. ANIMATED SPLASH SCREEN OVERLAY WITH FRAMED CONTOUR
+   ========================================= */
+.splash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: all;
+}
+
+.splash-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Framed Contour Container around Mosque Logo */
+.splash-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 400px;
+  height: 200px;
+  padding: 24px 30px;
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1.5px solid rgba(6, 78, 59, 0.16);
+  box-shadow: 0 12px 35px rgba(6, 78, 59, 0.08);
+}
+
+.splash-mosque-svg {
+  width: 130px;
+  height: 130px;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateX(0);
+}
+
+.splash-container.slid .splash-mosque-svg {
+  transform: translateX(58px) scale(0.9);
+}
+
+.svg-stroke-path {
+  fill: none;
+  stroke: #0f172a;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawMosqueStroke 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes drawMosqueStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.splash-typography {
+  position: absolute;
+  left: 18px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  text-align: right;
+}
+
+.splash-container.slid .splash-typography {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.splash-title-brand {
+  font-family: 'Cairo', sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.splash-title-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--gold);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.splash-sub-brand {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary-emerald);
+}
+
+.splash-city-brand {
+  font-size: 10px;
+  color: var(--slate);
+}
+
+/* =========================================
+   1. MANDATORY AUTHENTICATION GATE (LOCK SCREEN)
+   ========================================= */
+.auth-gate-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at top, #062e25 0%, #022c22 60%, #080d11 100%);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.auth-gate-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
+.auth-card-box {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  width: 100%;
+  max-width: 460px;
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(217, 119, 6, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .auth-card-box {
+  background: rgba(19, 32, 41, 0.95);
+  border: 1px solid rgba(217, 119, 6, 0.4);
+}
+
+.auth-header-emblem {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.auth-kaaba-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #022c22 0%, #064e3b 100%);
+  border: 2px solid var(--gold);
+  color: var(--gold-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px var(--gold-glow);
+  margin-bottom: 12px;
+}
+
+.auth-tabs {
+  display: flex;
+  background: rgba(6, 78, 59, 0.08);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.auth-tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
+  color: var(--slate-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-tab-btn.active {
+  background: var(--primary-emerald);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(6, 78, 59, 0.25);
+}
+
+/* =========================================
+   2. MOSQUE APP HEADER WITH LATERAL ARCHED BORDERS
+   ========================================= */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-emerald-dark) 0%, #034031 50%, var(--primary-emerald) 100%);
+  color: #ffffff;
+  padding: 18px 32px;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  box-shadow: 0 16px 36px rgba(2, 44, 34, 0.35);
+  position: relative;
+  overflow: hidden;
+
+  /* Lateral Arched Borders (حواف إسلامية ذهبية فخمة من الجوانب والأسفل) */
+  border-left: 4px solid var(--gold);
+  border-right: 4px solid var(--gold);
+  border-bottom: 2px solid rgba(217, 119, 6, 0.6);
+}
+
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 200%;
+  background-image: radial-gradient(rgba(217, 119, 6, 0.18) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.header-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+.mosque-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mosque-logo-icon {
+  background: #04382b;
+  border: 2px solid var(--gold);
+  color: var(--gold-accent);
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px var(--gold-glow);
+  transition: transform 0.2s;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.mosque-logo-icon:hover {
+  transform: scale(1.05);
+}
+
+.mosque-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.mosque-sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 2px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-session-chip {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================================
+   3. GLASSMORPHISM & GENERAL UI
+   ========================================= */
+.glass-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-glass);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+[data-theme="dark"] .glass-card {
+  background: rgba(19, 32, 41, 0.88);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:hover {
+  box-shadow: 0 14px 40px 0 rgba(6, 78, 59, 0.12);
+}
+
+.main-wrapper {
+  max-width: 1280px;
+  margin: 24px auto;
+  padding: 0 24px;
+  flex: 1;
+  width: 100%;
+}
+
+/* Prayer Hero Widget */
+.prayer-hero {
+  background: linear-gradient(135deg, #042f24 0%, #064e3b 100%);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 24px 30px;
+  border: 1.5px solid rgba(217, 119, 6, 0.45);
+  box-shadow: var(--shadow-glass);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prayer-hero-tag {
+  background: rgba(217, 119, 6, 0.25);
+  border: 1px solid var(--gold-light);
+  color: var(--gold-accent);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.prayer-hero-name {
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.prayer-hero-time {
+  font-size: 19px;
+  color: var(--gold-accent);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.prayer-hero-iqama {
+  background: rgba(255, 255, 255, 0.14);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.countdown-box {
+  background: rgba(0, 0, 0, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.countdown-digits {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+  direction: ltr;
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 3px;
+}
+
+/* Nav Tabs */
+.tabs-navigation {
+  display: flex;
+  gap: 6px;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate);
+  cursor: pointer;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--primary-emerald);
+  background: rgba(6, 78, 59, 0.05);
+}
+
+.tab-btn.active {
+  color: var(--primary-emerald);
+  border-bottom: 3px solid var(--primary-emerald);
+  font-weight: 800;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary-emerald);
+  color: #ffffff;
+}
+.btn-primary:hover {
+  background: var(--primary-emerald-light);
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: #ffffff;
+  box-shadow: var(--shadow-gold);
+}
+.btn-gold:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--border-light);
+  color: var(--text-main);
+}
+.btn-outline:hover {
+  border-color: var(--primary-emerald);
+  color: var(--primary-emerald);
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+.btn-danger:hover {
+  background: var(--error);
+  color: #fff;
+}
+
+/* Role Badges */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.role-badge-founder {
+  background: rgba(217, 119, 6, 0.15);
+  color: var(--gold-dark);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+}
+
+.role-badge-sheikh {
+  background: rgba(6, 78, 59, 0.15);
+  color: var(--primary-emerald);
+  border: 1px solid rgba(6, 78, 59, 0.3);
+}
+
+.role-badge-teacher {
+  background: rgba(37, 99, 235, 0.15);
+  color: #1d4ed8;
+  border: 1px solid rgba(37, 99, 235, 0.3);
+}
+
+.role-badge-student {
+  background: rgba(16, 185, 129, 0.15);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* =========================================
+   4. CUSTOM UI LUXURY PICKERS & MODALS
+   ========================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 16px;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  background: var(--surface-light);
+  width: 100%;
+  max-width: 600px;
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+  position: relative;
+}
+
+[data-theme="dark"] .modal-content {
+  background: var(--card-dark);
+  border-color: var(--border-dark);
+}
+
+/* Custom Surah Picker Modal Component */
+.surah-picker-search {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.surah-picker-search input {
+  width: 100%;
+  padding: 12px 42px 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-light);
+  background: var(--surface-light);
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.surah-picker-search i {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate);
+}
+
+.surahs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.surah-card-btn {
+  background: rgba(6, 78, 59, 0.04);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  text-align: right;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.surah-card-btn:hover, .surah-card-btn.selected {
+  background: rgba(6, 78, 59, 0.12);
+  border-color: var(--primary-emerald);
+  transform: translateY(-2px);
+}
+
+.surah-card-btn.selected {
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px var(--gold-glow);
+}
+
+.surah-number-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary-emerald);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.surah-card-btn.selected .surah-number-badge {
+  background: var(--gold);
+}
+
+/* Custom Level Selector Radio Cards */
+.custom-level-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.level-card-option {
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(6, 78, 59, 0.02);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.level-card-option:hover {
+  border-color: var(--primary-emerald);
+  background: rgba(6, 78, 59, 0.06);
+}
+
+.level-card-option.selected {
+  border-color: var(--gold);
+  background: rgba(217, 119, 6, 0.1);
+  box-shadow: 0 4px 12px var(--gold-glow);
+}
+
+.level-card-option.selected i {
+  color: var(--gold);
+}
+
+/* Custom Trigger Input for Custom Pickers */
+.custom-picker-trigger {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--surface-light);
+  color: var(--text-main);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.custom-picker-trigger:hover {
+  border-color: var(--primary-emerald);
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--surface-light);
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-emerald);
+  box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.12);
+}
+
+/* Grid Utilities */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .prayer-hero {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .countdown-box {
+    width: 100%;
+  }
+  .app-header {
+    padding: 16px 20px;
+  }
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}

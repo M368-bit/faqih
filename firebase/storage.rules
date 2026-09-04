@@ -1,0 +1,64 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function getUserRole() {
+      return request.auth.token.role;
+    }
+
+    function isStaff() {
+      return isSignedIn() && (
+        getUserRole() == 'founder_admin' || 
+        getUserRole() == 'mosque_sheikh' || 
+        getUserRole() == 'quran_teacher'
+      );
+    }
+
+    function isAudio() {
+      return request.resource.contentType.matches('audio/.*') &&
+             request.resource.size < 100 * 1024 * 1024; // Up to 100MB for Azan & audio files
+    }
+
+    function isLargeMedia() {
+      // Allows high-definition Friday Sermon videos and audio recordings up to 1 GB (1,073,741,824 bytes)
+      return (request.resource.contentType.matches('audio/.*') || 
+              request.resource.contentType.matches('video/.*') ||
+              request.resource.contentType == 'application/pdf') &&
+             request.resource.size < 1024 * 1024 * 1024; // Exactly 1 GB limit
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/(jpeg|png|webp|svg\\+xml)') &&
+             request.resource.size < 10 * 1024 * 1024; // Max 10MB
+    }
+
+    // 1. Custom Azan Audio Files (Makkah Takbeerat)
+    match /audio/azan/{fileName} {
+      allow read: if true;
+      allow write: if isStaff() && isAudio();
+    }
+
+    // 2. Adhkar & Mosque Architectural Photos
+    match /images/{imageId} {
+      allow read: if true;
+      allow write: if isStaff() && isImage();
+    }
+
+    // 3. Friday Khutbah & Lesson Recordings (Up to 1 GB)
+    match /lessons/{lessonFile} {
+      allow read: if true;
+      allow write: if isStaff() && isLargeMedia();
+    }
+
+    // 4. User Profile Pictures
+    match /users/{userId}/avatar {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && request.auth.uid == userId && isImage();
+    }
+  }
+}
