@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_constants.dart';
-import '../../core/services/auth_service.dart';
-import '../../core/services/prayer_service.dart';
-import '../../core/services/notification_service.dart';
-import '../../core/services/tahfeez_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import '../../core/widgets/mosque_header.dart';
-import '../../core/widgets/prayer_countdown.dart';
+import '../../core/index.dart';
 import '../auth/models/user_model.dart';
 import '../../features/prayer_times/screens/prayer_times_screen.dart';
 import '../../features/tahfeez/screens/teacher_dashboard_screen.dart';
