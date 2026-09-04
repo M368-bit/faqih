@@ -31,6 +31,9 @@ jobs:
       - name: Configure Android
         run: flutter create --platforms=android . --no-overwrite
 
+      - name: Clean Build Cache
+        run: flutter clean && rm -rf build/
+
       - name: Build Release APK
         run: flutter build apk --release
 
