@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'app.dart';
+import 'package:fakieh_mosque_app/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import '../../features/auth/models/user_model.dart';
-import '../utils/password_validator.dart';
-import 'mock_data_service.dart';
-import 'secure_storage_service.dart';
+import 'package:fakieh_mosque_app/features/auth/models/user_model.dart';
+import 'package:fakieh_mosque_app/core/utils/password_validator.dart';
+import 'package:fakieh_mosque_app/core/services/mock_data_service.dart';
+import 'package:fakieh_mosque_app/core/services/secure_storage_service.dart';
 
 class AuthService extends ChangeNotifier {
   UserModel? _currentUser;

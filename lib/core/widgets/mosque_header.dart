@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../features/splash/widgets/mosque_vector_painter.dart';
-import '../constants/app_colors.dart';
-import '../constants/app_constants.dart';
-import '../theme/text_styles.dart';
+import 'package:fakieh_mosque_app/features/splash/widgets/mosque_vector_painter.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
 
 /// Mosque Header featuring Kaaba Golden Emblem with Lateral Arched Borders
 class MosqueHeader extends StatelessWidget {

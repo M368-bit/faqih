@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../../features/tahfeez/models/tahfeez_models.dart';
-import 'mock_data_service.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/models/tahfeez_models.dart';
+import 'package:fakieh_mosque_app/core/services/mock_data_service.dart';
 
 class TahfeezService extends ChangeNotifier {
   List<TahfeezCircleModel> _circles = List.from(MockDataService.mockCircles);

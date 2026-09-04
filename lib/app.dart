@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'core/constants/app_constants.dart';
-import 'core/services/auth_service.dart';
-import 'core/services/prayer_service.dart';
-import 'core/services/notification_service.dart';
-import 'core/services/tahfeez_service.dart';
-import 'core/theme/app_theme.dart';
-import 'features/splash/screens/splash_screen.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/services/prayer_service.dart';
+import 'package:fakieh_mosque_app/core/services/notification_service.dart';
+import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
+import 'package:fakieh_mosque_app/core/theme/app_theme.dart';
+import 'package:fakieh_mosque_app/features/splash/screens/splash_screen.dart';
 
 class FakiehMosqueApp extends StatelessWidget {
   const FakiehMosqueApp({super.key});

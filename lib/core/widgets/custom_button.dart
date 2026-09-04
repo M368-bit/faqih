@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
-import '../theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;

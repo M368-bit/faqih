@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../../features/lessons_sermons/models/lesson_model.dart';
-import 'mock_data_service.dart';
+import 'package:fakieh_mosque_app/features/lessons_sermons/models/lesson_model.dart';
+import 'package:fakieh_mosque_app/core/services/mock_data_service.dart';
 
 class LessonsService extends ChangeNotifier {
   List<LessonModel> _lessons = List.from(MockDataService.mockLessons);

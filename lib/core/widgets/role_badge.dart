@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../features/auth/models/user_model.dart';
-import '../constants/app_colors.dart';
-import '../theme/text_styles.dart';
+import 'package:fakieh_mosque_app/features/auth/models/user_model.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
 
 class RoleBadge extends StatelessWidget {
   final UserRole role;

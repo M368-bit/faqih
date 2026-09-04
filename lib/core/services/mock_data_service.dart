@@ -1,8 +1,8 @@
-import '../../features/auth/models/user_model.dart';
-import '../../features/prayer_times/models/prayer_time_model.dart';
-import '../../features/tahfeez/models/tahfeez_models.dart';
-import '../../features/adhkar/models/dhikr_model.dart';
-import '../../features/lessons_sermons/models/lesson_model.dart';
+import 'package:fakieh_mosque_app/features/auth/models/user_model.dart';
+import 'package:fakieh_mosque_app/features/prayer_times/models/prayer_time_model.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/models/tahfeez_models.dart';
+import 'package:fakieh_mosque_app/features/adhkar/models/dhikr_model.dart';
+import 'package:fakieh_mosque_app/features/lessons_sermons/models/lesson_model.dart';
 
 class MockDataService {
   // Verified User Directory (Initialized with the Founder Admin Account)

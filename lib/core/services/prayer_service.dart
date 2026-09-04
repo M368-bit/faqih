@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import '../../features/prayer_times/models/prayer_time_model.dart';
-import 'mock_data_service.dart';
+import 'package:fakieh_mosque_app/features/prayer_times/models/prayer_time_model.dart';
+import 'package:fakieh_mosque_app/core/services/mock_data_service.dart';
 
 class PrayerService extends ChangeNotifier {
   DayPrayerSchedule _schedule = MockDataService.getInitialPrayerSchedule();
