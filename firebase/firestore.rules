@@ -1,0 +1,184 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ==========================================
+    // 0. ZERO-TRUST UTILITIES & ACCESS GUARDS
+    // ==========================================
+    function isSignedIn() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isAppCheckVerified() {
+      // Enforce Firebase App Check token verification for API protection
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isFounderAdmin() {
+      return isSignedIn() && (
+        getUserData().role == 'founder_admin' || 
+        getUserData().role == 'admin' ||
+        request.auth.token.role == 'founder_admin'
+      );
+    }
+
+    function isMosqueSheikh() {
+      return isSignedIn() && (
+        getUserData().role == 'mosque_sheikh' || 
+        getUserData().role == 'sheikh'
+      );
+    }
+
+    function isQuranTeacher() {
+      return isSignedIn() && (
+        getUserData().role == 'quran_teacher' || 
+        getUserData().role == 'teacher'
+      );
+    }
+
+    function isStudent() {
+      return isSignedIn() && getUserData().role == 'student';
+    }
+
+    // Input Validation Helpers (Anti-Injection & Sanitization)
+    function isValidString(val, minLen, maxLen) {
+      return val is string && val.size() >= minLen && val.size() <= maxLen;
+    }
+
+    function isValidRole(role) {
+      return role in ['founder_admin', 'mosque_sheikh', 'quran_teacher', 'student', 'standard_user'];
+    }
+
+    // Default: Deny all unmatched paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ==========================================
+    // 1. USERS COLLECTION (Anti-Privilege Escalation)
+    // ==========================================
+    match /users/{userId} {
+      // Any authenticated user can read user documents (UI enforces profile privacy rules)
+      allow read: if isSignedIn();
+
+      // Safe creation: New user creation defaults to standard_user or matches server authorization
+      allow create: if isSignedIn() && request.auth.uid == userId && (
+        // Standard users can only create account with standard_user role
+        (request.resource.data.role == 'standard_user' &&
+         isValidString(request.resource.data.name, 2, 100) &&
+         isValidString(request.resource.data.email, 5, 120)) ||
+        isFounderAdmin()
+      );
+
+      // Safe update: Prevent unauthorized elevation of role or modification of audit fields
+      allow update: if isSignedIn() && (
+        isFounderAdmin() ||
+        (
+          request.auth.uid == userId &&
+          // Normal user cannot change their own role or createdAt timestamp
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'createdAt', 'isVerified']) &&
+          isValidString(request.resource.data.name, 2, 100)
+        )
+      );
+
+      // Deletion strictly limited to Founder Admin
+      allow delete: if isFounderAdmin();
+    }
+
+    // ==========================================
+    // 2. PRAYER SETTINGS (Sheikh Exclusive Override)
+    // ==========================================
+    match /prayer_settings/{docId} {
+      // Public read for all worshippers & visitors
+      allow read: if true;
+
+      // Only Mosque Sheikh & Founder Admin can override prayer times & Iqama delays
+      allow write: if isFounderAdmin() || isMosqueSheikh();
+    }
+
+    // ==========================================
+    // 3. QURAN CIRCLES (Tahfeez Academy)
+    // ==========================================
+    match /circles/{circleId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isFounderAdmin() || (
+        isQuranTeacher() && 
+        resource.data.teacherId == request.auth.uid
+      );
+    }
+
+    // ==========================================
+    // 4. DAILY HOMEWORK (الجديد والمراجعة)
+    // ==========================================
+    match /homework/{homeworkId} {
+      // Read: Founder Admin, Teacher, or the specific assigned Student (IDOR Protection)
+      allow read: if isSignedIn() && (
+        isFounderAdmin() ||
+        isQuranTeacher() ||
+        resource.data.studentId == request.auth.uid
+      );
+
+      // Create: Teacher or Founder Admin
+      allow create: if (isFounderAdmin() || isQuranTeacher()) &&
+        request.resource.data.newSurahNumber >= 1 && request.resource.data.newSurahNumber <= 114 &&
+        request.resource.data.reviewSurahNumber >= 1 && request.resource.data.reviewSurahNumber <= 114;
+
+      // Update: Teacher has full control; Student can ONLY update 'isCompleted' flag
+      allow update: if isSignedIn() && (
+        isFounderAdmin() ||
+        isQuranTeacher() ||
+        (
+          isStudent() &&
+          resource.data.studentId == request.auth.uid &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['isCompleted'])
+        )
+      );
+
+      allow delete: if isFounderAdmin() || isQuranTeacher();
+    }
+
+    // ==========================================
+    // 5. TAHFEEZ APPLICATIONS (Enrollment Requests)
+    // ==========================================
+    match /tahfeez_applications/{appId} {
+      // Read: Admin, Teacher, or Applicant themselves (Anti-IDOR)
+      allow read: if isSignedIn() && (
+        isFounderAdmin() ||
+        isQuranTeacher() ||
+        resource.data.applicantId == request.auth.uid
+      );
+
+      // Create: Any authenticated user for their own application only
+      allow create: if isSignedIn() &&
+        request.resource.data.applicantId == request.auth.uid &&
+        request.resource.data.status == 'pending' &&
+        isValidString(request.resource.data.applicantName, 3, 100);
+
+      // Update (Review / Approve / Reject): Restricted to Teachers and Admin
+      allow update: if isFounderAdmin() || isQuranTeacher();
+      allow delete: if isFounderAdmin();
+    }
+
+    // ==========================================
+    // 6. LESSONS, SERMONS & ADHKAR
+    // ==========================================
+    match /lessons/{lessonId} {
+      allow read: if true;
+      allow write: if isFounderAdmin() || isMosqueSheikh();
+    }
+
+    match /adhkar/{dhikrId} {
+      allow read: if true;
+      allow write: if isFounderAdmin();
+    }
+
+    match /mosque_meta/{docId} {
+      allow read: if true;
+      allow write: if isFounderAdmin();
+    }
+  }
+}

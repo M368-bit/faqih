@@ -1,0 +1,17 @@
+{
+  "name": "فقيه",
+  "short_name": "فقيه",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#064E3B",
+  "orientation": "portrait-top",
+  "description": "التطبيق الرسمي لجامع الشيخ عبد القادر فقيه - مكة المكرمة",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
