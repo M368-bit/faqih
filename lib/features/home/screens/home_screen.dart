@@ -10,15 +10,15 @@ import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
 import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
 import 'package:fakieh_mosque_app/core/widgets/mosque_header.dart';
 import 'package:fakieh_mosque_app/core/widgets/prayer_countdown.dart';
-import '../auth/models/user_model.dart';
-import '../../features/prayer_times/screens/prayer_times_screen.dart';
-import '../../features/tahfeez/screens/teacher_dashboard_screen.dart';
-import '../../features/tahfeez/screens/student_dashboard_screen.dart';
-import '../../features/tahfeez/screens/tahfeez_apply_screen.dart';
-import '../../features/adhkar/screens/adhkar_hub_screen.dart';
-import '../../features/mosque_info/screens/about_mosque_screen.dart';
-import '../../features/lessons_sermons/screens/lessons_screen.dart';
-import '../../features/profile/screens/profile_screen.dart';
+import 'package:fakieh_mosque_app/features/auth/models/user_model.dart';
+import 'package:fakieh_mosque_app/features/prayer_times/screens/prayer_times_screen.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/screens/teacher_dashboard_screen.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/screens/student_dashboard_screen.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/screens/tahfeez_apply_screen.dart';
+import 'package:fakieh_mosque_app/features/adhkar/screens/adhkar_hub_screen.dart';
+import 'package:fakieh_mosque_app/features/mosque_info/screens/about_mosque_screen.dart';
+import 'package:fakieh_mosque_app/features/lessons_sermons/screens/lessons_screen.dart';
+import 'package:fakieh_mosque_app/features/profile/screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

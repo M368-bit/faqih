@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/services/mock_data_service.dart';
-import '../../core/services/notification_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import '../widgets/digital_tasbeeh_counter.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/services/mock_data_service.dart';
+import 'package:fakieh_mosque_app/core/services/notification_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/features/adhkar/widgets/digital_tasbeeh_counter.dart';
 
 class PostPrayerAdhkarScreen extends StatelessWidget {
   const PostPrayerAdhkarScreen({super.key});

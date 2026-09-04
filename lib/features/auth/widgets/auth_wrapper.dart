@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/services/auth_service.dart';
-import '../../home/screens/home_screen.dart';
-import '../screens/login_screen.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/features/home/screens/home_screen.dart';
+import 'package:fakieh_mosque_app/features/auth/screens/login_screen.dart';
 
 /// Mandatory Authentication Gatekeeper
 /// Strictly prevents unauthenticated users from accessing the mosque dashboard.

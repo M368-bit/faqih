@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/quran_data.dart';
-import '../../core/services/tahfeez_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/custom_button.dart';
-import '../../core/widgets/custom_surah_picker.dart';
-import '../models/tahfeez_models.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/quran_data.dart';
+import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/custom_button.dart';
+import 'package:fakieh_mosque_app/core/widgets/custom_surah_picker.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/models/tahfeez_models.dart';
 
 class AssignHomeworkModal extends StatefulWidget {
   final String teacherId;

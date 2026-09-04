@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../auth/widgets/auth_wrapper.dart';
-import '../widgets/mosque_vector_painter.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/features/auth/widgets/auth_wrapper.dart';
+import 'package:fakieh_mosque_app/features/splash/widgets/mosque_vector_painter.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

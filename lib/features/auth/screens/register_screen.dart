@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_constants.dart';
-import '../../../core/services/auth_service.dart';
-import '../../../core/theme/text_styles.dart';
-import '../../../core/utils/password_validator.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/glass_card.dart';
-import '../../home/screens/home_screen.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/utils/password_validator.dart';
+import 'package:fakieh_mosque_app/core/widgets/custom_button.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/features/home/screens/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

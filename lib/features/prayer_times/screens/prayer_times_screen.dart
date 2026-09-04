@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/services/auth_service.dart';
-import '../../core/services/prayer_service.dart';
-import '../../core/services/notification_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import '../../core/widgets/prayer_countdown.dart';
-import 'sheikh_prayer_override_sheet.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/services/prayer_service.dart';
+import 'package:fakieh_mosque_app/core/services/notification_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/core/widgets/prayer_countdown.dart';
+import 'package:fakieh_mosque_app/features/prayer_times/screens/sheikh_prayer_override_sheet.dart';
 
 class PrayerTimesScreen extends StatelessWidget {
   const PrayerTimesScreen({super.key});

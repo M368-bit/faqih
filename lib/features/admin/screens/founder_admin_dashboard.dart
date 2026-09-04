@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/services/auth_service.dart';
-import '../../core/services/tahfeez_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import 'user_management_screen.dart';
-import '../../features/auth/models/user_model.dart';
-import '../../features/prayer_times/screens/sheikh_prayer_override_sheet.dart';
-import '../../features/tahfeez/screens/applications_review_screen.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/features/admin/screens/user_management_screen.dart';
+import 'package:fakieh_mosque_app/features/auth/models/user_model.dart';
+import 'package:fakieh_mosque_app/features/prayer_times/screens/sheikh_prayer_override_sheet.dart';
+import 'package:fakieh_mosque_app/features/tahfeez/screens/applications_review_screen.dart';
 
 class FounderAdminDashboard extends StatelessWidget {
   const FounderAdminDashboard({super.key});

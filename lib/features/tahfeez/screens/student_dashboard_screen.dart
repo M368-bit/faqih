@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/services/auth_service.dart';
-import '../../core/services/tahfeez_service.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import '../../core/widgets/custom_button.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/services/auth_service.dart';
+import 'package:fakieh_mosque_app/core/services/tahfeez_service.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/core/widgets/custom_button.dart';
 
 class StudentDashboardScreen extends StatelessWidget {
   const StudentDashboardScreen({super.key});

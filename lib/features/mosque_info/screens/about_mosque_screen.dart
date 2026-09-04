@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_constants.dart';
-import '../../core/theme/text_styles.dart';
-import '../../core/widgets/glass_card.dart';
-import '../../core/widgets/custom_button.dart';
+import 'package:fakieh_mosque_app/core/constants/app_colors.dart';
+import 'package:fakieh_mosque_app/core/constants/app_constants.dart';
+import 'package:fakieh_mosque_app/core/theme/text_styles.dart';
+import 'package:fakieh_mosque_app/core/widgets/glass_card.dart';
+import 'package:fakieh_mosque_app/core/widgets/custom_button.dart';
 
 class AboutMosqueScreen extends StatelessWidget {
   const AboutMosqueScreen({super.key});
